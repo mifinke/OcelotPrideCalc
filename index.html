@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Token Calculator with Associative Array</title>
+</head>
+<body>
+    <h1>Ocelot Token Calculator for Dummies</h1>
+    <form id="inputForm">
+        <label for="triggers">Number of Ocelot Pride Triggers:</label>
+        <input type="number" id="triggers" required><br><br>
+
+        <label for="tokensCreated">Tokens Created This Turn:</label>
+        <input type="number" id="tokensCreated" required><br><br>
+
+        <label for="tokenDoubler">Token Doubler Effect (Multiplier):</label>
+        <input type="number" id="tokenDoubler" value="2" required><br><br>
+
+        <button type="submit">Calculate</button>
+    </form>
+
+    <h2>Output:</h2>
+    <pre id="output"></pre>
+    <pre id="output2"></pre>
+
+    <script>
+        document.getElementById('inputForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get the input values
+            const triggers = parseInt(document.getElementById('triggers').value);
+            let tokensCreated = parseInt(document.getElementById('tokensCreated').value);
+            const tokenDoubler = parseInt(document.getElementById('tokenDoubler').value);
+
+            // Initialize associative array
+            const tokenResults = {};
+
+            // Initialize output
+            let output = '';
+            let output2 = '';
+
+            // Initialize previousTokens for accumulation
+            let previousTokens = 0;
+            let totalTokens=0;
+
+            // While loop to process each trigger
+            let i = 1; // Start from 1 to match trigger count with iteration
+            while (i <= triggers) {
+
+                //Tokens that are NOT Cats
+                // Double the tokens created
+                let currentTokens = tokensCreated * 2;
+                // Add the tokens from the previous iteration
+                currentTokens += previousTokens;
+                // Apply the token doubler effect
+                currentTokens *= tokenDoubler;
+                // Store the result in the associative array with iteration number as the key
+                tokenResults[i] = currentTokens;
+                // Update previousTokens for the next iteration
+                previousTokens = currentTokens;
+                // Output the result for this iteration
+                output += 'Trigger ' + i + ': ' + currentTokens + ' tokens\n';
+                totalTokens += tokenResults[i];
+
+                //Calculate the number of White Cat tokens to be created
+
+
+
+                i++;
+            }
+            
+            // Display the associative array and the output
+            //output += '\nAssociative Array (Trigger: Tokens):\n' + JSON.stringify(tokenResults, null, 2);
+            output2 += '\nTotal Tokens Created:\n' + JSON.stringify(totalTokens);
+
+            console.log(totalTokens);
+
+            document.getElementById('output').textContent = output;
+            document.getElementById('output2').textContent = output2;
+        });
+    </script>
+</body>
+</html>
