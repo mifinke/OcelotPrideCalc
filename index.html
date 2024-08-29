@@ -48,17 +48,19 @@
             // While loop to process each trigger
             let i = 1; // Start from 1 to match trigger count with iteration
             while (i <= triggers) {
-
+                console.log(tokenResults[i-1]);
                 //Tokens that are NOT Cats
                 //Calculate the number of new tokens to be created
-                let newTokens = tokenResults[i-1] + tokenResults[i-1];
-                
+                let newTokens = tokenResults[i-1] *2;
+                console.log(newTokens + " tokens created");
 
                 //take created tokens and multiply by token doublers.
                 newTokens *= tokenDoubler;
+                console.log("doubled to " + newTokens);
 
                 // Store the result in the associative array with iteration number as the key
-                tokenResults[i] = newTokens;
+                tokenResults[i] = newTokens + tokenResults[i-1];
+                console.log(tokenResults[i] + " sent up");
 
                 // Output the result for this iteration
 
@@ -68,7 +70,7 @@
             let totalTokens = tokenResults[tokenResults.length - 1];
             
             // Display the associative array and the output
-            //output += '\nAssociative Array (Trigger: Tokens):\n' + JSON.stringify(tokenResults, null, 2);
+            output += '\nAssociative Array (Trigger: Tokens):\n' + JSON.stringify(tokenResults, null, 2);
             //output2 += '\nTotal Tokens Created:\n' + JSON.stringify(totalTokens);
             //console.log(totalTokens);
 
